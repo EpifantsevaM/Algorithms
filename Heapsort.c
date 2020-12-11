@@ -38,10 +38,26 @@ void sort(int * a, int n){
 
 
 
-int main(){
-    int n = 10;
-    int a[10] = {8,5,13,4,0,65,789,34,2,34};
+int main(int argc, char* argv[]){
+    if(argc != 3)
+        return 0;
+    FILE* fp = fopen(argv[1], "r");
+    if(fp == NULL)
+        return 1;
+    int n;
+    fscanf(fp, "%d", &n);
+    int a[n];
+    for(int i = 0; i < n; i++){
+        fscanf(fp, "%d", &a[i]);
+    }
+    fclose(fp);
     sort(a, n);
-    for(int i = 0; i < 10; i++)
-        printf("%d ", a[i]);
+    fp = fopen(argv[2], "w");
+    if(fp == NULL)
+        return 2;
+    for(int i = 0; i < n; i++){
+        fprintf(fp, "%d\n", a[i]);
+    }
+    fclose(fp);
+    return 0;
 }
